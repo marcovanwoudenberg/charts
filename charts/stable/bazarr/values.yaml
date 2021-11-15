@@ -17,14 +17,14 @@ image:
 # @default -- See below
 env:
   # -- Set the container timezone
-  TZ: UTC
+  TZ: Europe/Amsterdam
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
 service:
   main:
     ports:
-      http:
+      http: 192.168.1.38
         port: 6767
 
 ingress:
@@ -37,8 +37,13 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 1Gi
 
   media:
-    enabled: false
-    mountPath: /media
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteMany
+    size: 5Gi
+    mountPath: /mnt/hdd/bazarr/media
